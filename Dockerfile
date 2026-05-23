@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Installa Chrome usando il repository ufficiale (con retry e fallback)
+# Installa Chrome
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -18,7 +18,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY test_proxy.py .
 
-# Imposta Chrome come browser predefinito
+# Forza SeleniumBase a usare Chrome
 ENV CHROME_BIN=/usr/bin/google-chrome
+ENV SELENIUM_BROWSER=chrome
 
 CMD ["python", "test_proxy.py"]
