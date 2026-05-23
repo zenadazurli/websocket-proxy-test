@@ -1,15 +1,19 @@
 from seleniumbase import SB
 
-PROXY = "http://localhost:8080"
+PROXY = "http://sazz16014w96:t3vz152mql23@resi.fusionproxy.net:13822"
 
-print("🚀 Test WebSocket con mitmproxy...")
+print("🚀 Test proxy diretto con SeleniumBase...")
 
-with SB(uc=True, headless=True, xvfb=True, proxy=PROXY) as sb:
-    sb.open("https://api.ipify.org")
+with SB(uc=True, headless=True, xvfb=True) as sb:
+    # Attiva CDP mode con proxy
+    sb.activate_cdp_mode("https://api.ipify.org", proxy=PROXY)
+    
+    # Leggi l'IP
     ip = sb.get_text("body")
     print(f"✅ IP del browser: {ip}")
     
-    sb.open("https://www.easyhits4u.com/logon/")
+    # Ora prova EasyHits4U
+    sb.get("https://www.easyhits4u.com/logon/")
     print(f"📍 Titolo: {sb.get_title()}")
     
-    print("🎉 Successo! Il browser ha caricato la pagina attraverso il proxy.")
+    print("🎉 Successo!")
